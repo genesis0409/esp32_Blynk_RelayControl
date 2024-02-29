@@ -10,6 +10,10 @@
 #include <Arduino.h>
 #include <ArduinoJson.h>
 
+#include "soc/soc.h"          // Disable brownout problems
+#include "soc/rtc_cntl_reg.h" // Disable brownout problems
+#include "driver/rtc_io.h"
+
 #include <U8x8lib.h>
 // #include "TYPE1SC.h"
 
@@ -61,6 +65,8 @@ bool led_Relay4 = LED_OFF;
 //
 void setup()
 {
+  WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); // disable brownout detector
+
   Serial.begin(SERIAL_BR);
 
   pinMode(RELAY_SIG1, OUTPUT);
